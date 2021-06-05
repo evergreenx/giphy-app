@@ -7,7 +7,7 @@ export const setGifs = (gifs) => {
   };
 };
 
-export const selectedProduct = (gif) => {
+export const selectedGif = (gif) => {
   return {
     type: ActionTypes.SELECTED_GIF,
     payload: gif,

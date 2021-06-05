@@ -1,61 +1,62 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectedProduct } from "../redux/actions/productsActions";
+import { selectedGif } from "../redux/actions/gifsActions";
 
 const GifDetails = () => {
-  const { productId } = useParams();
+  const { id } = useParams();
+
+  const [loading, setLoading] = useState(true);
 
   let gif = useSelector((state) => state.gif);
-
-  const { title, type, source, import_datetime, rating } = gif;
 
   const dispatch = useDispatch();
   const fetchGiftDetail = async () => {
     const response = await axios
       .get(
-        `https://api.giphy.com/v1/gifs/${productId}?api_key=deokzgUjxm6QHQdp3H3aca1LSZcCpucc&q=sphinx`
+        `https://api.giphy.com/v1/gifs/${id}?api_key=deokzgUjxm6QHQdp3H3aca1LSZcCpucc&q=sphinx`
       )
+
       .catch((err) => {
         console.log("Err: ", err);
       });
-    dispatch(selectedProduct(response.data.data));
+    setLoading(false);
+
+    dispatch(selectedGif(response.data.data));
   };
   console.log(gif);
 
   useEffect(() => {
     fetchGiftDetail();
   }, []);
-  return (
-    <div className="container mx-auto px-5 mt-6 capitalize bg-white rounded-lg shadow-lg p-5 flex flex-col text-center justify-center">
-      <center>
-        {/* <img
-        src={gif.images.downsized_medium.url}
-        className="w-96 h-96 justify-self-center"
-        alt={"gif"}
-      /> */}
 
-        {/* 
-<img
-        src={images.downsized_medium.url}
-        className="w-96 h-96 justify-self-center"
-        alt={"gif"}
-      /> */}
-      </center>
+  if (loading) {
+    return (
+      <div className="loader flex justify-center mx-auto mt-6 ease-linear rounded-full border-8 border-t-8 border-gray-200 h-64 w-64"></div>
+    );
+  }
+
+  return (
+    <div className="container mx-auto px-5 mt-6 capitalize bg-white rounded-lg shadow-lg p-5 flex flex-col justify-center">
+      {gif.images ? (
+        <img
+          src={gif.images.fixed_height.url}
+          className="w-96 h-96 justify-self-center"
+          alt={"gif"}
+        />
+      ) : (
+        "loading"
+      )}
 
       <h1 className="text-lg font-bold">
-        Gif Title : {title ? title : "No title"}
+        Gif Title : {gif.title ? gif.title : "No title"}
       </h1>
-      <h1 className="text-lg font-bold">type: {type}</h1>
-      <p className="font-bold text-lg">
-        source :
-        <a href={source} className="lowercase">
-          {source}
-        </a>
-        <p>rate: {rating}</p>
-      </p>
-      <p>Date created : {import_datetime}</p>
+      <h1 className="text-lg font-bold">type: {gif.type}</h1>
+
+      <p className="font-bold text-lg ">rate: {gif.rating}</p>
+
+      <p className="font-bold text-lg">Date created : {gif.import_datetime}</p>
     </div>
   );
 };

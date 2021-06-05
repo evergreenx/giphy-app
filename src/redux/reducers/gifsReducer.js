@@ -17,7 +17,7 @@ export const selectedGifsReducer = (state = {}, { type, payload }) => {
   switch (type) {
     case ActionTypes.SELECTED_GIF:
       return { ...state, ...payload };
- 
+
     default:
       return state;
   }

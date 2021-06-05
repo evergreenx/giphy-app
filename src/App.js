@@ -1,21 +1,22 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import GifDetails from "./component/GifDetails";
-import GifsListing from './component/GifsListing'
-import Header from "./component/Header";
-
+import GifsListing from "./component/GifsListing";
+import store from "./redux/store";
+import { Provider } from "react-redux";
 
 function App() {
   return (
-    <div className="App">
-      <Router>
-     <Header/>
-        <Switch>
-          <Route path="/" exact component={GifsListing} />
-          <Route path="/product/:productId" component={GifDetails} />
-          <Route>404 Not Found!</Route>
-        </Switch>
-      </Router>
-    </div>
+    <Provider store={store}>
+      <div className="App" data-testid="root">
+        <Router>
+          <Switch>
+            <Route path="/" exact component={GifsListing} />
+            <Route path="/gif/:id" component={GifDetails} />
+            <Route>404 Not Found!</Route>
+          </Switch>
+        </Router>
+      </div>
+    </Provider>
   );
 }
 
