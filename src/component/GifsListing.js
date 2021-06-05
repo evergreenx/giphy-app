@@ -36,7 +36,7 @@ const GifsListing = () => {
     <>
       <Header />
       <div className="container mx-auto w-screen mt-10">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-8" data-testid="list">
           {gifs.map((i) => {
             return (
               <div className=" ">
