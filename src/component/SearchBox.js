@@ -17,14 +17,13 @@ export default function SearchBox() {
 
   const getSearch = (e) => {
     e.preventDefault();
-    // setQuery(search);
+  
     setSearch("");
 
     axios.get(
       `https://api.giphy.com/v1/gifs/search?api_key=deokzgUjxm6QHQdp3H3aca1LSZcCpucc&q=${search}`
     ).then(res =>{
 
-        console.log(res , 'this is the response')
     dispatch(setGifs(res.data.data));
 
     })

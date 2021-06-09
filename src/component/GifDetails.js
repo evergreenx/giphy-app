@@ -12,8 +12,6 @@ const GifDetails = () => {
   let gif = useSelector((state) => state.gif);
 
   const dispatch = useDispatch();
-  
-  console.log(gif);
 
   useEffect(() => {
     const fetchGifDetail = async () => {
@@ -21,16 +19,16 @@ const GifDetails = () => {
         .get(
           `https://api.giphy.com/v1/gifs/${id}?api_key=deokzgUjxm6QHQdp3H3aca1LSZcCpucc&q=sphinx`
         )
-  
+
         .catch((err) => {
           console.log("Err: ", err);
         });
       setLoading(false);
-  
+
       dispatch(selectedGif(response.data.data));
     };
     fetchGifDetail();
-  }, [dispatch , id]);
+  }, [dispatch, id]);
 
   if (loading) {
     return (

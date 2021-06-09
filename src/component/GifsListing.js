@@ -40,7 +40,7 @@ const GifsListing = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-8" data-testid="list">
           {gifs.map((i) => {
             return (
-              <div className=" ">
+              <div key={i.id}>
                 <div className="bg-white rounded-lg shadow-lg mb-20">
                   <img
                     src={i.images.fixed_height.url}
