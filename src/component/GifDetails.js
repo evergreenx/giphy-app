@@ -12,24 +12,25 @@ const GifDetails = () => {
   let gif = useSelector((state) => state.gif);
 
   const dispatch = useDispatch();
-  const fetchGiftDetail = async () => {
-    const response = await axios
-      .get(
-        `https://api.giphy.com/v1/gifs/${id}?api_key=deokzgUjxm6QHQdp3H3aca1LSZcCpucc&q=sphinx`
-      )
-
-      .catch((err) => {
-        console.log("Err: ", err);
-      });
-    setLoading(false);
-
-    dispatch(selectedGif(response.data.data));
-  };
+  
   console.log(gif);
 
   useEffect(() => {
-    fetchGiftDetail();
-  }, []);
+    const fetchGifDetail = async () => {
+      const response = await axios
+        .get(
+          `https://api.giphy.com/v1/gifs/${id}?api_key=deokzgUjxm6QHQdp3H3aca1LSZcCpucc&q=sphinx`
+        )
+  
+        .catch((err) => {
+          console.log("Err: ", err);
+        });
+      setLoading(false);
+  
+      dispatch(selectedGif(response.data.data));
+    };
+    fetchGifDetail();
+  }, [dispatch , id]);
 
   if (loading) {
     return (

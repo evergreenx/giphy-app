@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setGifs } from "../redux/actions/gifsActions";
 
 
 
 export default function SearchBox() {
   const [search, setSearch] = useState("");
-  const [query, setQuery] = useState("");
   const dispatch = useDispatch();
 
 
@@ -18,7 +17,7 @@ export default function SearchBox() {
 
   const getSearch = (e) => {
     e.preventDefault();
-    setQuery(search);
+    // setQuery(search);
     setSearch("");
 
     axios.get(

@@ -10,21 +10,22 @@ const GifsListing = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true)
 
-  const fetchGifs = async () => {
-    const response = await axios
-      .get(
-        "https://api.giphy.com/v1/gifs/trending?api_key=deokzgUjxm6QHQdp3H3aca1LSZcCpucc&limit=25&offset=0&rating=Y&lang=en"
-      )
-      .catch((err) => {
-        console.log("Err: ", err);
-      });
-      setLoading(false)
-    dispatch(setGifs(response.data.data));
-  };
+
 
   useEffect(() => {
+    const fetchGifs = async () => {
+      const response = await axios
+        .get(
+          "https://api.giphy.com/v1/gifs/trending?api_key=deokzgUjxm6QHQdp3H3aca1LSZcCpucc&limit=25&offset=0&rating=Y&lang=en"
+        )
+        .catch((err) => {
+          console.log("Err: ", err);
+        });
+        setLoading(false)
+      dispatch(setGifs(response.data.data));
+    };
     fetchGifs();
-  }, []);
+  }, [dispatch]);
 
 
   if(loading) {
